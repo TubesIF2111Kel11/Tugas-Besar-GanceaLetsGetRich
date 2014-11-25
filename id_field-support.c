@@ -1,5 +1,18 @@
 //id: field
 
+// props
+
+typedef struct {
+				int Kompleks;
+				char Gedung;
+				longint harga;
+				} properti;
+
+// Board
+typedef struct{
+				properti petak[20];
+				}Board;
+
 #include <stdio.h>
 #include <stdlib.h>
 #define nil NULL
