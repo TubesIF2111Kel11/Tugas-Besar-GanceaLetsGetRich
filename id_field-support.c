@@ -4,7 +4,7 @@
 
 typedef struct {
 				int Kompleks;
-				char Gedung;
+				char Gedung[20];
 				longint harga;
 				} properti;
 
@@ -129,3 +129,56 @@ void purchase(infotype no_field, infotype no_player, field *X){
 void sell(infotype no_field, field *X){
 	(*X).own[no_field] = 0;
 }
+
+void jail() {
+	// skip 3 turn
+	int r,t;
+	randdice(&r);
+	ranndice(&t);
+	if (r == t) {
+		// Jalan
+		}
+	}
+	
+	
+	
+void randdice(int *r) {
+	//#include <time.h>
+	//#include <stdlib.h>
+
+	// srand(time(NULL)); // Dipanggil hanya sekali, pindah ke main
+	int r = rand() % 6 + 1;
+	}
+
+void freepark(address P) {
+	if (travb(x, c)) {
+		pos(P) = travbn(x, c);
+		printf("bacot\n");
+		}
+	else {
+		printf("bacot\n");
+		}
+	}
+		
+bool travb(Board x, char c[20]) {
+	// Kamus Lokal
+	int i = 1;
+	bool b = 0;
+	// Algoritma
+	while((!(b)) && (i <= 20)) {
+		if (strcmp(x.petak[i], c) == 1)
+			b = 1;
+		++i;
+		}
+	return b;
+	}
+	
+int tranvbn(Board x, char c[20]) {
+	// Kamus Lokal
+	int i = 1;
+	// Algoritma
+	while ((strcmp(x.petak[i], c) != 1) && (i <= 20)) {
+		++i;
+		}
+	return i;
+	}
