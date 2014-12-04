@@ -23,14 +23,16 @@ static FILE *ingameplayer;
 int main() {
 	i = 0;
 	srand(time(0));
-	open();
-	//f2arrcpy(&a, &Neff);
-	while(fgets(a, 20, text) != NULL) {
-		read();
-		strcpy(((a)[i]), cc);
+	openr();
+	f2arrcpy(&T);
+	close();
+	openw();
+	/* while(fgets(a, 20, text) != NULL) {
+		read(&c);
+		strcpy(((a)[i]), c);
 		++i;
 		}
-	Neff = i;
+	T.Neff = i; */
 	do {
 		printf("Main Menu\n");
 		printf("1. Register\n");
@@ -57,10 +59,17 @@ int main() {
 						if (NCmp(T, c)) {
 							Login(&Q,P);
 							printf("Login Berhasil/n");
+							createHSB(&SB);
 							init_player(P, c, Q);
-							loadHS();
-							ftoHS(&SB);
-							initgame();
+							loadHSR();
+							if (!(emptyboard())) 
+								ftoHS(&SB);
+							closeHS();
+							loadHSW();
+							}
+						else {
+							printf("Username tidak ditemukan. Mohon registrasti terlebih dahulu\n\n");
+							break;
 							}
 							do {
 								printf("Preparation Menu\n");
@@ -86,22 +95,27 @@ int main() {
 													init_player(P, c, Q)
 													}
 												finlist(&Q);
+												opengameW();
 												// diisi oleh bagian board & game
+												fclose(ingameplayer);
 												break;
 									case 2 :	if (emptygame()) {
 													printf("Tidak ada game yang disimpan\n");
 													break;
 													}
 												else {
+													opengameR();
 													loadgame(&Q, P);
+													fclose(ingameplayer);
+													opengameW();
 													finlist(&Q);
 													// diisi oleh bagian board & game
+													fclose(ingameplayer);
 													break;
 													}
 									case 3 :	PrintHS(SB);
 									case 4 :	saveHS(SB);
 												closeHS();
-												fclose(ingameplayer);
 												printf("Anda berhasil Log Out\n\n");
 												break;
 									default :	printf("Input salah! mohon ulangi\n\n");
@@ -117,6 +131,7 @@ int main() {
 						
 						break;
 			case 4 :	printf("Selamat Tinggal!\n\n");
+						write(c, T);
 						close();
 						break;
 			default :	printf("Input salah! mohon ulangi\n\n");
@@ -126,3 +141,5 @@ int main() {
 	while (k != 4);
 	return 0;
 	}
+	
+	
