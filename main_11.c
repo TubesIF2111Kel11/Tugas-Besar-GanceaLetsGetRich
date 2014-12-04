@@ -5,6 +5,8 @@
 #include <string.h>
 #include <stdio.h>
 #include "player.h"
+#include <stddef.h>
+#include <stdlib.h>
 
 UserTab T;
 Queue Q;
@@ -55,6 +57,7 @@ int main() {
 						if (NCmp(T, c)) {
 							Login(&Q,P);
 							printf("Login Berhasil/n");
+							init_player(P, c, Q);
 							loadHS();
 							ftoHS(&SB);
 							initgame();
@@ -80,7 +83,7 @@ int main() {
 													printf("Nama Pemain %d : ", c);
 													scanf("%s", &c);
 													Login(&Q, P);
-													init_player(P, c)
+													init_player(P, c, Q)
 													}
 												finlist(&Q);
 												// diisi oleh bagian board & game
@@ -120,8 +123,6 @@ int main() {
 						break;
 			}
 		}
-	while (k != 3);
+	while (k != 4);
 	return 0;
 	}
-	
-	
