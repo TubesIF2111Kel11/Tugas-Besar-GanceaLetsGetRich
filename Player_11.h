@@ -1,6 +1,7 @@
 // player.h
 
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef struct tpemain *address;
 
@@ -26,7 +27,6 @@ typedef struct {
 #define aset(P) (P)->Assets
 #define pos(P) (P)->position
 #define Next(P) (P)->Next
-#define Jail(P) (P)->jailturn
 #define Index(P) (P)->index
 #define Blank ' '
 #define BlankScore "..."
@@ -82,13 +82,17 @@ void Logon(Queue *Q);
 	
 // File I/O untuk registrasi
 	
-void open();
-/* Prosedur membuka filestream yang berisi tabel registrasi pemain*/
+void openr();
+/* Prosedur membuka filestream yang berisi tabel registrasi pemain dengan mode read */
+
+void openw();
+/* Prosedur membuka filestream yang berisi tabel registrasi pemain dengan mode write */
 
 void close();
 /* Prosedur menutup filestream yang berisi tabel registrasi pemain */
 
-/* void read(); */
+void read();
+/* Prosedur untuk membaca isi filestream */
 		
 void write(char c[20], UserTab T);
 /* Prosedur mengisi filestream yang berisi tabel registrasi pemain */
@@ -101,8 +105,11 @@ void f2arrcpy(UserTab *T);
 bool emptygame();
 /* sebuah fungsi yang mengembalikan nilai true apabila file yang dibaca kosong */
 
-void initgame();
-/* Prosedur untuk membuka filestream simpanan permainan */
+void opengameR();
+/* Prosedur untuk membuka filestream simpanan permainan dalam mode read */
+	
+void opengameW();
+/* Prosedur untuk membuka filestream simpanan permainan dalam mode write */
 	
 void savegame(Queue Q);
 /* Prosedur untuk menyimpan permainan */
@@ -134,8 +141,14 @@ void ftoHS();
 	
 	//3. load/save High Score ke eksternal	
 	
-void loadHS();
-/* Prosedur untuk membuka filestream yang berisi tabel highscore */
+bool emptyboard();
+/* Fungsi yang mengembalikan nilai true apabila filestream yang berisi highscore kosong */
+	
+void loadHSR();
+/* Prosedur untuk membuka filestream yang berisi tabel highscore dalam mode read */
+
+void loadHSW();
+/* Prosedur untuk membuka filestream yang berisi tabel highscore dalam mode write */
 	
 void saveHS(ScoreBoard SB);
 /* Prosedur untuk menyimpan isi dari tabel Highscore ke dalam filestream */
