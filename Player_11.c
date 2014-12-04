@@ -5,7 +5,10 @@
 				
 static FILE *textuser;
 static FILE *hsdb;
+static FILE *ingameplayer
 				
+// Registrasi
+
 bool IsNP(Queue *Q){
 	return ((Head(*Q) == Nil) && (Tail(*Q) = Nil));
 	}
@@ -34,18 +37,15 @@ void Register(UserTab *T, char c[20]){
 		Printf("Anda Berhasil Mendaftar\n");
 		}
 	}
+	
+// Konstruksi list-queue pemain
 
 void NextTurn(Queue *Q) {
 	Head(*Q) = Next(Head(*Q));
 	Tail(*Q) = Next(Tail(*Q));
 	}
 	
-void init_player(Address P, char c[20]) {
-	// Kamus Lokal
-	// Address P;
-	// bool b = 0;
-	// Algoritma
-	P = Head(*Q);
+void init_player(address P, char c[20]) {
 	strcpy(Nama(P), c);
 	balance(P) = 10000000;
 	aset(P) = balance(P);
@@ -56,7 +56,7 @@ int countplayer(Queue Q) {
 	// Kamus Lokal
 	int n = 0;
 	bool b = 0;
-	Address P;
+	address P;
 	// Algoritma
 	if (IsNP) 
 		return 0;
@@ -74,7 +74,7 @@ int countplayer(Queue Q) {
 	
 bool NCmp(UserTab T, char c[20]) {
 	// Kamus Lokal
-	Address P = Head(Q);
+	address P = Head(Q);
 	int i = 1;
 	bool b = 0;
 	// Algoritma
@@ -86,36 +86,35 @@ bool NCmp(UserTab T, char c[20]) {
 	return (b);
 	}
 	
-void Login(Queue *Q, UserTab T, Address P, char c[20]) {
+void Login(Queue *Q, address P) {
 	// Algoritma
-	Logon((&(*Q)), T);
+	Logon((&(*Q)));
 	P = Tail(*Q);
-	// init_player(P, c);
 	}
 	
-void Logon(Queue *Q, UserTab T) {
+void Logon(Queue *Q) {
 	// Kamus Lokal
 	address X, Hex;
 	// Algoritma
-	P = Head(*Q);
-	if ((P) == Nil) {
-		(P) = (address)malloc(sizeof(Pemain));
-		if ((*P) != Nil) {
-			Head(*Q) = (P);
-			Tail(*Q) = (P);
+	X = Head(*Q);
+	if ((X) == Nil) {
+		(X) = (address)malloc(sizeof(Pemain));
+		if (X != Nil) {
+			Head(*Q) = (X);
+			Tail(*Q) = (X);
 			}
 		}
 	else {
-		P = Tail(*Q);
+		X = Tail(*Q);
 		Hex = (address)malloc(sizeof(Pemain));
-		P  = Next(P);
-		P = Hex;
-		Tail(*Q) = P;
+		Hex  = Next(X);
+		Tail(*Q) = Hex;
 		}
 	}
 	
+// File I/O untuk registrasi
+	
 void open() {
-	//text = fopen(f, "ab+");
 	textuser = fopen ("accountdb.txt", "r+");
 	if (textuser == NULL )
 		textuser = fopen("accountdb.txt", "w+");
@@ -153,6 +152,52 @@ void f2arrcpy(UserTab *T) {
 	*Neff = i;
 	}
 	
+// File I/O untuk list-queue pemain
+
+bool emptygame() {
+	// Kamus Lokal
+	char cc[20];
+	// Algoritma
+	return(fgets(cc, 20, ingameplayer) == NULL);
+	}
+
+void initgame() {
+	ingameplayer = fopen ("game.dbgc", "r+");
+	if (ingameplayer == NULL )
+		ingameplayer = fopen("game.dbgc", "w+");
+	}
+	
+void savegame(Queue Q) {
+	// Kamus Lokal
+	address P;
+	int i = 1;
+	// Algoritma
+	P = Head(Q);
+	for (i; i <= countplayer(Q); ++i) {
+		fprintf(ingameplayer, "%s\t%ld\t%ld\t%d", Name(P), balance(P), aset(P), pos(P));
+		P = Next(P);
+		}
+	}
+	
+void loadgame(Queue *Q, address P) {
+	// Kamus Lokal
+	int i = 1;
+	char c[20];
+	long bal, ast;
+	int post;
+	// Algoritma
+	for (i; i <= countplayer(*Q); ++i) {
+		fscanf(ingameplayer,"%s\t%ld\t%ld\t%d", &c, &bal, &ast, &post);
+		Login((&(*Q)), P);
+		strcpy(Nama(P), c);
+		balance(P) = bal;
+		aset(P) = ast;
+		pos(P) = post;
+		}
+	}
+	
+// Finalisasi circular list-queue pemain
+
 void finlist(Queue *Q) {
 	Next(Tail(*Q)) = Head(*Q);
 	}
@@ -212,9 +257,10 @@ void ftoHS(ScoreBoard *SB) {
 	//3. load/save High Score ke eksternal	
 	
 void loadHS() {
-	text = fopen ("Highscore.dbgc", "r+");
-	if (textuser == NULL )
-		textuser = fopen("Highscore.dbgc", "w+");
+	// Kamus Lokal
+	hsdb = fopen ("Highscore.dbgc", "r+");
+	if (hsdb == NULL )
+		hsdb = fopen("Highscore.dbgc", "w+");
 	} 
 	
 void saveHS(ScoreBoard SB) {
@@ -229,4 +275,5 @@ void saveHS(ScoreBoard SB) {
 void closeHS() {
 	fclose(hsdb);
 	}
+	
 	
