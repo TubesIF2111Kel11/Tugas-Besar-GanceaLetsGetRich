@@ -62,6 +62,7 @@ void init_player(address P, char c[20]);
 /* prosedur untuk inisialisasi keadaan awal pemain */
 	
 int countplayer(Queue Q);
+/* Sebuah fungsi untuk menghitung jumlah pemain yang berada di dalam list-queue */ 
 	
 bool NCmp(UserTab T, char c[20]);
 /* Mengembalikan kondisi True/False mengenai perbandingan adanya nama pemain di tabel registrasi dengan nama pemain yang diinput oleh user */
