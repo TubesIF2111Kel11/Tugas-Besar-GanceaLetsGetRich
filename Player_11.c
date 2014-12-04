@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "player_11.h"
 #include <stddef.h>
+#include <stdlib.h>
 				
 static FILE *textuser;
 static FILE *hsdb;
@@ -53,7 +54,7 @@ void NextTurn(Queue *Q) {
 	Tail(*Q) = Next(Tail(*Q));
 	}
 	
-void init_player(address P, char c[20]) {
+void init_player(address P, char c[20], Queue Q) {
 	// Kamus Lokal
 	// address P;
 	// bool b = 0;
@@ -62,6 +63,7 @@ void init_player(address P, char c[20]) {
 	balance(P) = 10000000;
 	aset(P) = balance(P);
 	pos(P) = 0;
+	Index(P) = countplayer(Q);
 	}
 	
 int countplayer(Queue Q) {
@@ -205,6 +207,7 @@ void loadgame(Queue *Q, address P) {
 		balance(P) = bal;
 		aset(P) = ast;
 		pos(P) = post;
+		Index(P) = i;
 		}
 	}
 	
