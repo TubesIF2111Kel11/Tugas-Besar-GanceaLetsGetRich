@@ -38,7 +38,7 @@ typedef struct {
 typedef struct {
 				HighScore HS[10];
 				} ScoreBoard;
-
+				
 // Registrasi
 
 bool IsNP(Queue *Q);
@@ -58,7 +58,7 @@ void Register(UserTab *T, char c[20]);
 void NextTurn(Queue *Q);
 /* Prosedur saat turn seorang pemain telah habis */
 	
-void init_player(Address P, char c[20]);
+void init_player(address P, char c[20]);
 /* prosedur untuk inisialisasi keadaan awal pemain */
 	
 int countplayer(Queue Q);
@@ -66,10 +66,10 @@ int countplayer(Queue Q);
 bool NCmp(UserTab T, char c[20]);
 /* Mengembalikan kondisi True/False mengenai perbandingan adanya nama pemain di tabel registrasi dengan nama pemain yang diinput oleh user */
 	
-void Login(Queue *Q, UserTab T, Address P, char c[20]);
+void Login(Queue *Q, address P);
 /* Prosedur untuk login pemain, yaitu membuat list-queue yang berisi data pemain */
 	
-void Logon(Queue *Q, UserTab T);
+void Logon(Queue *Q);
 /* Prosedur tambahan yang digunakan dalam prosedur Login */
 	
 // File I/O untuk registrasi
@@ -87,6 +87,20 @@ void write(char c[20], UserTab T);
 
 void f2arrcpy(UserTab *T);
 /* Prosedur untuk menyalin isi filestream tabel registrasi pemain ke dalam tabel registrasi pemain */
+
+// File I/O untuk list-queue pemain
+
+bool emptygame();
+/* sebuah fungsi yang mengembalikan nilai true apabila file yang dibaca kosong */
+
+void initgame();
+/* Prosedur untuk membuka filestream simpanan permainan */
+	
+void savegame(Queue Q);
+/* Prosedur untuk menyimpan permainan */
+	
+void loadgame(Queue *Q, address P);
+/* Prosedur untuk memuat permainan yang telah disimpan */
 
 // Finalisasi circular list-queue pemain
 	
