@@ -1,15 +1,11 @@
 #include "boolean.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
+#include "player_11.h"
 
-#define Nil ' '
 
 // board T3
 typedef struct{
 				char kotak[4][4];
-				}BoardT3;
+				} BoardT3;
 
 // fungsi dan prosedur
 boolean CekIsi(BoardT3 A, int x, int y);
@@ -47,4 +43,7 @@ void KompJalan1 (BoardT3 *A);
 // melakukan turn komputer pada level 1
 
 void KompJalan2 (BoardT3 *A, int turn);
-// melakukan turn komputer pa
+// melakukan turn komputer pada level 2
+
+void playtictactoe(BoardT3 *P, Queue *Q);
+// Prosedur untuk memanggil game tictactoe
