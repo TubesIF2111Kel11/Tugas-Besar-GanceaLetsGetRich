@@ -106,6 +106,9 @@ void AddHS(ScoreBoard *SB, Queue Q);
 	
 void PrintHS(ScoreBoard SB);
 /* Prosedur untuk mencetak isi dari tabel Highscore ke layar */
+
+void ftoHS();
+/* Prosedur untuk menyalin isi filestream ke dalam tabel Highscore */
 	
 	//3. load/save High Score ke eksternal	
 	
