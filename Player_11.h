@@ -10,6 +10,7 @@ typedef struct tpemain {
 				long Assets;
 				int position;
 				int jailturn;
+				int index;
 				address Next;
 				} Pemain;
 
@@ -26,6 +27,7 @@ typedef struct {
 #define pos(P) (P)->position
 #define Next(P) (P)->Next
 #define Jail(P) (P)->jailturn
+#define Index(P) (P)->index
 #define Blank ' '
 #define BlankScore "..."
 #define Nil NULL
@@ -63,7 +65,7 @@ void Register(UserTab *T, char c[20]);
 void NextTurn(Queue *Q);
 /* Prosedur saat turn seorang pemain telah habis */
 	
-void init_player(address P, char c[20]);
+void init_player(address P, char c[20], Queue Q);
 /* prosedur untuk inisialisasi keadaan awal pemain */
 	
 int countplayer(Queue Q);
