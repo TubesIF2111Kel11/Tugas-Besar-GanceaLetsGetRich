@@ -30,7 +30,7 @@ int main() {
 		}
 	Neff = i;
 	do {
-		printf("MENU UTAMA\n");
+		printf("Main Menu\n");
 		printf("1. Register\n");
 		printf("2. Login\n");
 		printf("3. About\n");
