@@ -200,6 +200,15 @@ void PrintHS(ScoreBoard SB) {
 		}
 	}
 	
+void ftoHS(ScoreBoard *SB) {
+	// Kamus Lokal
+	int i = 0;
+	// Algoritma
+	for (i; i <= 9; ++i) {
+		fscanf(hsdb, "%s\t%ld", (*SB)[i].NameRec, (*SB)[i].AssetsRec);
+		}
+	}
+	
 	//3. load/save High Score ke eksternal	
 	
 void loadHS() {
