@@ -9,15 +9,17 @@
 UserTab T;
 Queue Q;
 char c[20];
-Address P;
+address P;
 static FILE *textuser;
 char l;
 int k, y, nump, i;
 ScoreBoard SB;
+static FILE *hsdb;
+static FILE *ingameplayer;
 
 
 int main() {
-	int i = 0;
+	i = 0;
 	srand(time(0));
 	open();
 	//f2arrcpy(&a, &Neff);
@@ -51,8 +53,11 @@ int main() {
 						printf("Masukkan User Name\n");
 						scanf("%s", &c);
 						if (NCmp(T, c)) {
-							Login(&Q, T, P, c);
+							Login(&Q,P);
 							printf("Login Berhasil/n");
+							loadHS();
+							ftoHS(&SB);
+							initgame();
 							}
 							do {
 								printf("Preparation Menu\n");
@@ -72,15 +77,29 @@ int main() {
 												while ((nump > 4) || (nump < 2));
 												printf("Nama Pemain 1 : %s\n", Name(Tail(Q)));
 												for (i = 2; i <= nump; ++i) {
-													printf("Nama Pemain %d : ", i);
+													printf("Nama Pemain %d : ", c);
 													scanf("%s", &c);
+													Login(&Q, P);
+													init_player(P, c)
 													}
 												finlist(&Q);
 												// diisi oleh bagian board & game
 												break;
-									case 2 :	
+									case 2 :	if (emptygame()) {
+													printf("Tidak ada game yang disimpan\n");
+													break;
+													}
+												else {
+													loadgame(&Q, P);
+													finlist(&Q);
+													// diisi oleh bagian board & game
+													break;
+													}
 									case 3 :	PrintHS(SB);
-									case 4 :	printf("Anda berhasil Log Out\n\n");
+									case 4 :	saveHS(SB);
+												closeHS();
+												fclose(ingameplayer);
+												printf("Anda berhasil Log Out\n\n");
 												break;
 									default :	printf("Input salah! mohon ulangi\n\n");
 												break;
