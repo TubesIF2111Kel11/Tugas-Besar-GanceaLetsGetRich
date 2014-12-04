@@ -1,5 +1,9 @@
 // player.h
 
+#include <stddef.h>
+
+typedef struct tpemain *address;
+
 typedef struct tpemain {
 				char Nama[20];
 				long balance;
@@ -7,8 +11,6 @@ typedef struct tpemain {
 				int position;
 				address Next;
 				} Pemain;
-
-typedef struct tpemain *address;
 
 typedef struct {
 				address Head;
@@ -24,6 +26,7 @@ typedef struct {
 #define Next(P) (P)->Next
 #define Blank ' '
 #define BlankScore "..."
+#define Nil NULL
 
 typedef struct {
 				char UserName[100][20];
@@ -31,7 +34,7 @@ typedef struct {
 				} UserTab;
 				
 typedef struct {
-				char NameRec[20]
+				char NameRec[20];
 				long AssetsRec;
 				} HighScore;
 
@@ -63,7 +66,7 @@ void init_player(address P, char c[20]);
 	
 int countplayer(Queue Q);
 /* Sebuah fungsi untuk menghitung jumlah pemain yang berada di dalam list-queue */ 
-	
+
 bool NCmp(UserTab T, char c[20]);
 /* Mengembalikan kondisi True/False mengenai perbandingan adanya nama pemain di tabel registrasi dengan nama pemain yang diinput oleh user */
 	
