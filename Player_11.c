@@ -128,26 +128,29 @@ void Logon(Queue *Q) {
 	
 // File I/O untuk registrasi
 	
-void open() {
-	textuser = fopen ("accountdb.txt", "r+");
-	if (textuser == NULL )
-		textuser = fopen("accountdb.txt", "w+");
+void openr() {
+	textuser = fopen ("accountdb.txt", "r");
+	}
+	
+void openw() {
+	textuser = fopen("accountdb.txt", "w+");
 	}
 
 void close() {
 	fclose(textuser);
 	}
 
-/* void read() {
-	fscanf(textuser, "%s", cc);
-	} */
+void read(char *lplpl[20]) {
+	// Algoritma
+	fscanf(textuser, "%s", lplpl);
+	}
 		
 void write(char c[20], UserTab T) {
 	// Kamus Lokal
 	int i = 0;
 	// Algoritma
 	for (i ; i <= T.Neff; ++i) {
-		fprintf(textuser, "%s", c);
+		fprintf(textuser, "%s\n", c);
 		}
 	}	
 
@@ -158,7 +161,7 @@ void f2arrcpy(UserTab *T) {
 	// Algoritma
 	i = 0;
 	(*T).Neff = 0;
-	while(!feof(textuser)) {
+	while(fgets(cc, 20, textuser) != NULL) {
 		fscanf(textuser, "%s", cc);
 		strcpy((*T).UserName[i], cc);
 		++i;
@@ -175,10 +178,12 @@ bool emptygame() {
 	return(fgets(cc, 20, ingameplayer) == NULL);
 	}
 
-void initgame() {
-	ingameplayer = fopen ("game.dbgc", "r+");
-	if (ingameplayer == NULL )
-		ingameplayer = fopen("game.dbgc", "w+");
+void opengameR() {
+	ingameplayer = fopen ("game.dbgc", "r");
+	}
+	
+void opengameW() {
+	ingameplayer = fopen("game.dbgc", "w+");
 	}
 	
 void savegame(Queue Q) {
@@ -188,7 +193,7 @@ void savegame(Queue Q) {
 	// Algoritma
 	P = Head(Q);
 	for (i; i <= countplayer(Q); ++i) {
-		fprintf(ingameplayer, "%s\t%ld\t%ld\t%d", Name(P), balance(P), aset(P), pos(P));
+		fprintf(ingameplayer, "%s\t%ld\t%ld\t%d\n", Name(P), balance(P), aset(P), pos(P));
 		P = Next(P);
 		}
 	}
@@ -264,26 +269,37 @@ void ftoHS(ScoreBoard *SB) {
 	// Kamus Lokal
 	int i = 0;
 	// Algoritma
+	
 	for (i; i <= 9; ++i) {
 		fscanf(hsdb, "%s\t%ld", (*SB).HS[i].NameRec, (*SB).HS[i].AssetsRec);
 		}
 	}
 	
+	
 	//3. load/save High Score ke eksternal	
 	
-void loadHS() {
+bool emptyboard() {
 	// Kamus Lokal
-	hsdb = fopen ("Highscore.dbgc", "r+");
-	if (hsdb == NULL )
-		hsdb = fopen("Highscore.dbgc", "w+");
+	char cc[20];
+	// Algoritma
+	return(fgets(cc, 20, hsdb) == NULL);
+	}
+	
+void loadHSR() {
+	// Kamus Lokal
+	hsdb = fopen ("Highscore.dbgc", "r");
 	} 
+
+void loadHSW() {
+	hsdb = fopen("Highscore.dbgc", "w+");
+	}
 	
 void saveHS(ScoreBoard SB) {
 	// Kamus Lokal
 	int i = 0;
 	// Algoritma
 	for (i; i <= 9; ++i) {
-		fprintf(hsdb, "%s\t%ld", SB.HS[i].NameRec, SB.HS[i].AssetsRec);
+		fprintf(hsdb, "%s\t%ld\n", SB.HS[i].NameRec, SB.HS[i].AssetsRec);
 		}
 	}
 	
