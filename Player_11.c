@@ -1,40 +1,11 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
-
-// player
-
-typedef struct tpemain {
-				char Nama[20];
-				long balance;
-				long Assets;
-				int position;
-				address Next;
-				} Pemain;
-
-typedef struct tpemain *address;
-
-typedef struct {
-				address Head;
-				address Tail;
-				} Queue;
-				
-#define Head(Q) (Q).Head
-#define Tail(Q) (Q).Tail
-#define Name(P) (P)->Nama
-#define balance(P) (P)->balance
-#define aset(P) (P)->Assets
-#define pos(P) (P)->position
-#define Next(P) (P)->Next
-#define Blank ' '
-
-typedef struct {
-				char UserName[100][20];
-				int Neff;
-				} UserTab;
+#include "player_11.h"
 				
 static FILE *textuser;
-
+static FILE *hsdb;
+				
 bool IsNP(Queue *Q){
 	return ((Head(*Q) == Nil) && (Tail(*Q) = Nil));
 	}
@@ -63,7 +34,7 @@ void Register(UserTab *T, char c[20]){
 		Printf("Anda Berhasil Mendaftar\n");
 		}
 	}
-	
+
 void NextTurn(Queue *Q) {
 	Head(*Q) = Next(Head(*Q));
 	Tail(*Q) = Next(Tail(*Q));
@@ -142,10 +113,10 @@ void Logon(Queue *Q, UserTab T) {
 		Tail(*Q) = P;
 		}
 	}
-
-void open(f) {
+	
+void open() {
 	//text = fopen(f, "ab+");
-	text = fopen ("accountdb.txt", "r+");
+	textuser = fopen ("accountdb.txt", "r+");
 	if (textuser == NULL )
 		textuser = fopen("accountdb.txt", "w+");
 	}
@@ -181,11 +152,14 @@ void f2arrcpy(UserTab *T) {
 		}
 	*Neff = i;
 	}
-
+	
 void finlist(Queue *Q) {
 	Next(Tail(*Q)) = Head(*Q);
 	}
 	
+// High Score Board
+	
+	// 1. Konstruktor
 void createHSB(ScoreBoard *SB) {
 	// Kamus Lokal
 	int i = 0;
@@ -195,7 +169,9 @@ void createHSB(ScoreBoard *SB) {
 		(*SB)[i].AssetsRec = 0;
 		}
 	}
-
+	
+	// 2. Fungsi Utama
+	
 void AddHS(ScoreBoard *SB, Queue Q) {
 	// Kamus Lokal
 	int i, j;
@@ -220,10 +196,28 @@ void PrintHS(ScoreBoard SB) {
 	// Algoritma
 	printf("High Score Board\n\n");
 	for (i; i <= 9; ++i) {
-		printf("%d\t%s\t%ld", i, SB[i].NameRec, SB[i].AssetsRec);
+		printf("%d\t%s\t%ld\n", i, SB[i].NameRec, SB[i].AssetsRec);
 		}
 	}
 	
-// masalah load/save string ke eksternal	
-void loadHS() {} // Masih belum selesai
-void saveHS() {} // sda
+	//3. load/save High Score ke eksternal	
+	
+void loadHS() {
+	text = fopen ("Highscore.dbgc", "r+");
+	if (textuser == NULL )
+		textuser = fopen("Highscore.dbgc", "w+");
+	} 
+	
+void saveHS(ScoreBoard SB) {
+	// Kamus Lokal
+	int i = 0;
+	// Algoritma
+	for (i; i <= 9; ++i) {
+		fprintf(hsdb, "%s\t%ld", SB[i].NameRec, SB[i].AssetsRec);
+		}
+	}
+	
+void closeHS() {
+	fclose(hsdb);
+	}
+	
