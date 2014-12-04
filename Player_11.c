@@ -2,10 +2,11 @@
 #include <string.h>
 #include <stdio.h>
 #include "player_11.h"
+#include <stddef.h>
 				
 static FILE *textuser;
 static FILE *hsdb;
-static FILE *ingameplayer
+static FILE *ingameplayer;
 				
 // Registrasi
 
@@ -29,7 +30,7 @@ void CreateUTEmpty(UserTab *T) {
 	}
 	
 void Register(UserTab *T, char c[20]){ 
-	if (Neff == 100) 
+	if ((*T).Neff == 100) 
 		printf("Jumlah User telah mencapai batas maksimal\n");
 	else{
 		strcpy((*T).UserName, c);
@@ -46,6 +47,10 @@ void NextTurn(Queue *Q) {
 	}
 	
 void init_player(address P, char c[20]) {
+	// Kamus Lokal
+	// address P;
+	// bool b = 0;
+	// Algoritma
 	strcpy(Nama(P), c);
 	balance(P) = 10000000;
 	aset(P) = balance(P);
@@ -74,7 +79,7 @@ int countplayer(Queue Q) {
 	
 bool NCmp(UserTab T, char c[20]) {
 	// Kamus Lokal
-	address P = Head(Q);
+	// address P = Head(Q);
 	int i = 1;
 	bool b = 0;
 	// Algoritma
@@ -132,7 +137,7 @@ void write(char c[20], UserTab T) {
 	// Kamus Lokal
 	int i = 0;
 	// Algoritma
-	for (i ; i <= T.neff; ++i) {
+	for (i ; i <= T.Neff; ++i) {
 		fprintf(textuser, "%s", c);
 		}
 	}	
@@ -144,12 +149,12 @@ void f2arrcpy(UserTab *T) {
 	// Algoritma
 	i = 0;
 	(*T).Neff = 0;
-	while(!feof(text)) {
+	while(!feof(textuser)) {
 		fscanf(textuser, "%s", cc);
-		strcpy((*T).UserName[i]), cc);
+		strcpy((*T).UserName[i], cc);
 		++i;
 		}
-	*Neff = i;
+	(*T).Neff = i;
 	}
 	
 // File I/O untuk list-queue pemain
@@ -210,8 +215,8 @@ void createHSB(ScoreBoard *SB) {
 	int i = 0;
 	// Algoritma
 	for (i; i <= 9; ++i) {
-		strcpy((*SB)[i].NameRec, BlankScore);
-		(*SB)[i].AssetsRec = 0;
+		strcpy((*SB).HS[i].NameRec, BlankScore);
+		(*SB).HS[i].AssetsRec = 0;
 		}
 	}
 	
@@ -226,13 +231,13 @@ void AddHS(ScoreBoard *SB, Queue Q) {
 	do {
 		++i;
 		}
-	while (aset(Head(Q)) <= (*SB)[i].AssetsRec);
+	while (aset(Head(Q)) <= (*SB).HS[i].AssetsRec);
 	for (j = 9; j < i; --j) {
-		(*SB)[j].AssetsRec = (*SB)[j-1].AssetsRec;
-		strcpy((*SB)[j].AssetsRec, (*SB)[j-1].AssetsRec);
+		(*SB).HS[j].AssetsRec = (*SB).HS[j-1].AssetsRec;
+		strcpy((*SB).HS[j].AssetsRec, (*SB).HS[j-1].AssetsRec);
 		}
-	strcpy((*SB)[i].NameRec, Name(Head(Q)));
-	(*SB)[i].AssetsRec = aset(Head(Q));
+	strcpy((*SB).HS[i].NameRec, Name(Head(Q)));
+	(*SB).HS[i].AssetsRec = aset(Head(Q));
 	}
 	
 void PrintHS(ScoreBoard SB) {
@@ -241,7 +246,7 @@ void PrintHS(ScoreBoard SB) {
 	// Algoritma
 	printf("High Score Board\n\n");
 	for (i; i <= 9; ++i) {
-		printf("%d\t%s\t%ld\n", i, SB[i].NameRec, SB[i].AssetsRec);
+		printf("%d\t%s\t%ld\n", i, SB.HS[i].NameRec, SB.HS[i].AssetsRec);
 		}
 	}
 	
@@ -250,7 +255,7 @@ void ftoHS(ScoreBoard *SB) {
 	int i = 0;
 	// Algoritma
 	for (i; i <= 9; ++i) {
-		fscanf(hsdb, "%s\t%ld", (*SB)[i].NameRec, (*SB)[i].AssetsRec);
+		fscanf(hsdb, "%s\t%ld", (*SB).HS[i].NameRec, (*SB).HS[i].AssetsRec);
 		}
 	}
 	
@@ -268,7 +273,7 @@ void saveHS(ScoreBoard SB) {
 	int i = 0;
 	// Algoritma
 	for (i; i <= 9; ++i) {
-		fprintf(hsdb, "%s\t%ld", SB[i].NameRec, SB[i].AssetsRec);
+		fprintf(hsdb, "%s\t%ld", SB.HS[i].NameRec, SB.HS[i].AssetsRec);
 		}
 	}
 	
@@ -277,3 +282,4 @@ void closeHS() {
 	}
 	
 	
+
