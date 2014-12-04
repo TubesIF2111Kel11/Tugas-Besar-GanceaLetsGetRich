@@ -9,6 +9,7 @@ typedef struct tpemain {
 				long balance;
 				long Assets;
 				int position;
+				int jailturn;
 				address Next;
 				} Pemain;
 
@@ -24,6 +25,7 @@ typedef struct {
 #define aset(P) (P)->Assets
 #define pos(P) (P)->position
 #define Next(P) (P)->Next
+#define Jail(P) (P)->jailturn
 #define Blank ' '
 #define BlankScore "..."
 #define Nil NULL
