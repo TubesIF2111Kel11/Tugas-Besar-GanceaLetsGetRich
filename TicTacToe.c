@@ -1,8 +1,13 @@
-#include "TicTacToe.h"
+#include "TicTacToe_11.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 boolean CekIsi(BoardT3 A, int x, int y)
 {
-	if (A.kotak[x][y] == Nil)
+	if (A.kotak[x][y] == Blank)
 	{
 		return true;
 	}
@@ -36,7 +41,7 @@ void Kosongin (BoardT3 *A)
 	{
 		for  (j = 1; j<=3; j++)
 		{
-			(*A).kotak[i][j] = Nil;
+			(*A).kotak[i][j] = Blank;
 		}
 	}
 }
@@ -49,7 +54,7 @@ int JumlahKosong(BoardT3 A)
 	{
 		for  (j = 1; j<=3; j++)
 		{
-			if (A.kotak[i][j] == Nil)
+			if (A.kotak[i][j] == Blank)
 			{
 				jlh = jlh + 1;
 			}
@@ -1063,3 +1068,183 @@ void KompJalan2 (BoardT3 *A, int turn)
 		}
 	}
 }
+
+void playtictactoe(BoardT3 *A, Queue *Q) {
+	// Kamus Lokal
+	char lanjut;
+	int i, hold;
+	address P;
+	//Algoritma
+	P = Head(*Q);
+	srand(time(NULL));
+	Kosongin(&(*A));
+	printf("Level 1\n");
+	Tampilkan_BoardT3(*A);
+	
+	i = 1;
+	do
+	{
+		printf("%d\n",JumlahKosong(*A));
+		PlayerJalan(&(*A));
+		if (!(PlayerMenang(*A)))
+		{
+			KompJalan1(&(*A));
+		}
+		Tampilkan_BoardT3(*A);
+		i = i + 1;
+	}
+	while ((i <= 4) && (!(PlayerMenang(*A)) && !(KompMenang(*A))));
+	
+	if ((i == 5) && (!(PlayerMenang(*A)) && !(KompMenang(*A))))
+	{
+		PlayerJalan(&(*A));
+		if (PlayerMenang(*A))
+		{
+			Tampilkan_BoardT3(*A);
+			printf("Anda menang\n");
+			balance(P) *= 2;
+		}
+		else if (KompMenang(*A))
+		{
+			Tampilkan_BoardT3(*A);
+			printf("Anda kalah\n");
+			balance(P) /= 2;
+		}
+		else
+		{
+			Tampilkan_BoardT3(*A);
+			printf("Seri\n");
+		}
+	}
+	else
+	{
+		if (PlayerMenang(*A))
+		{
+			printf("Anda menang\n");
+			balance(P) *= 2;
+			
+		}
+		else if (KompMenang(*A))
+		{
+			printf("Anda kalah\n");
+			balance(P) /= 2;
+		}
+	}
+	
+	if ( PlayerMenang(*A))
+	{
+		printf("Lanjut ke level 2?");
+		scanf(" %c", &lanjut);
+		
+		if (lanjut == 'Y')
+		{
+			Kosongin(&(*A));
+		i = 1;
+		do
+		{
+			printf("%d\n",JumlahKosong(*A));
+			PlayerJalan(&(*A));
+			if (!(PlayerMenang(*A)))
+			{
+				KompJalan2((&(*A)), i);
+			}
+			Tampilkan_BoardT3(*A);
+			i = i + 1;
+		}
+		while ((i <= 4) && (!(PlayerMenang(*A)) && !(KompMenang(*A))));
+	
+		if ((i == 5) && (!(PlayerMenang(*A)) && !(KompMenang(*A))))
+		{
+			PlayerJalan(&(*A));
+			if (PlayerMenang(*A))
+			{
+				Tampilkan_BoardT3(*A);
+				printf("Anda menang\n");
+				balance(P) *= 2;
+			}
+			else if (KompMenang(*A))
+			{
+				Tampilkan_BoardT3(*A);
+				printf("Anda kalah\n");
+				balance(P) /= 2;
+			}
+			else
+			{
+				Tampilkan_BoardT3(*A);
+				printf("Seri\n");
+			}
+		}
+		else
+		{
+			if (PlayerMenang(*A))
+			{
+				printf("Anda menang\n");
+				balance(P) *= 2;
+			}
+			else if (KompMenang(*A))
+			{
+				printf("Anda kalah\n");
+				balance(P) /= 2;
+			}
+		}
+	}
+}
+	
+	if (PlayerMenang(*A))
+	{
+		printf("Lanjut ke level 3?");
+		scanf(" %c", &lanjut);
+		
+		if (lanjut == 'Y')
+		{
+			Kosongin(&(*A));
+		i = 1;
+		do
+		{
+			// printf("%d\n",JumlahKosong(*A));
+			PlayerJalan(&(*A));
+			KompJalan((&(*A)),i);
+			Tampilkan_BoardT3(*A);
+			i = i + 1;
+		}
+		while ((i <= 4) && (!(PlayerMenang(*A)) && !(KompMenang(*A))));
+	
+		if ((i == 5) && (!(PlayerMenang(*A)) && !(KompMenang(*A))))
+		{
+			PlayerJalan(&(*A));
+			if (PlayerMenang(*A))
+			{
+				Tampilkan_BoardT3(*A);
+				printf("Anda menang\n");
+				balance(P) *= 2;
+			}
+			else if (KompMenang(*A))
+			{
+				Tampilkan_BoardT3(*A);
+				printf("Anda kalah\n");
+				balance(P) /= 2;
+			}
+			else
+			{
+				Tampilkan_BoardT3(*A);
+				printf("Seri\n");
+			}
+		}
+		else
+		{
+			if (PlayerMenang(*A))
+			{
+				printf("Anda menang\n");
+				balance(P) *= 2;
+			}
+			else if (KompMenang(*A))
+			{
+				printf("Anda kalah\n");
+				balance(P) /= 2;
+			}
+		}
+	}
+}
+	scanf ("%d", &hold);
+}
+
