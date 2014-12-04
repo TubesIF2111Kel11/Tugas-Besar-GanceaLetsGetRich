@@ -161,7 +161,7 @@ void rent(infotype no_field, infotype no_player, Board *X){
 	}
 }
 
-void turn(address P) {	
+void move(address P) {	
 	int r,t;
 	randdice(&r);
 	ranndice(&t);
@@ -172,7 +172,7 @@ void turn(address P) {
 	}
 	if (r==t){
 		printf("bacot\n");
-		turn(P);
+		move(P);
 	}
 }
 
@@ -200,13 +200,13 @@ void castoff(infotype no_field, address P, Board *X){
 	}
 }
 	
-void jail(address P) {
+void turn(address P) {
 	int r,t;
 	randdice(&r);
 	ranndice(&t);
 	if ((r == t)||(Jail(P) = 0)) {
 		Jail(P) = 0;
-		turn(player);
+		move(player);
 	}else{
 		Jail(P) = Jail(P) - 1;
 	}
