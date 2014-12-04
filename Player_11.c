@@ -25,17 +25,24 @@ void CreateUTEmpty(UserTab *T) {
 	// Algoritma
 	(*T).Neff = 0;
 	for (i ; i <= 100; ++i) {
-		strcpy((*T).UserName[i], Blank);
+		(*T).UserName[i][1] = Blank;
 		}
 	}
 	
 void Register(UserTab *T, char c[20]){ 
+	// Kamus Lokal
+	int i = 0;
+	// Algoritma
 	if ((*T).Neff == 100) 
 		printf("Jumlah User telah mencapai batas maksimal\n");
 	else{
-		strcpy((*T).UserName, c);
+		// strcpy((*T).UserName, c);
 		++(*T).Neff;
-		Printf("Anda Berhasil Mendaftar\n");
+		do {
+			(*T).UserName[(*T).Neff][i] = c[i];
+			}
+		while(i<=19);			
+		printf("Anda Berhasil Mendaftar\n");
 		}
 	}
 	
@@ -51,7 +58,7 @@ void init_player(address P, char c[20]) {
 	// address P;
 	// bool b = 0;
 	// Algoritma
-	strcpy(Nama(P), c);
+	strcpy(Name(P), c);
 	balance(P) = 10000000;
 	aset(P) = balance(P);
 	pos(P) = 0;
@@ -103,7 +110,7 @@ void Logon(Queue *Q) {
 	// Algoritma
 	X = Head(*Q);
 	if ((X) == Nil) {
-		(X) = (address)malloc(sizeof(Pemain));
+		X = (address)malloc(sizeof(Pemain));
 		if (X != Nil) {
 			Head(*Q) = (X);
 			Tail(*Q) = (X);
@@ -194,7 +201,7 @@ void loadgame(Queue *Q, address P) {
 	for (i; i <= countplayer(*Q); ++i) {
 		fscanf(ingameplayer,"%s\t%ld\t%ld\t%d", &c, &bal, &ast, &post);
 		Login((&(*Q)), P);
-		strcpy(Nama(P), c);
+		strcpy(Name(P), c);
 		balance(P) = bal;
 		aset(P) = ast;
 		pos(P) = post;
@@ -234,7 +241,7 @@ void AddHS(ScoreBoard *SB, Queue Q) {
 	while (aset(Head(Q)) <= (*SB).HS[i].AssetsRec);
 	for (j = 9; j < i; --j) {
 		(*SB).HS[j].AssetsRec = (*SB).HS[j-1].AssetsRec;
-		strcpy((*SB).HS[j].AssetsRec, (*SB).HS[j-1].AssetsRec);
+		strcpy((*SB).HS[j].NameRec, (*SB).HS[j-1].NameRec);
 		}
 	strcpy((*SB).HS[i].NameRec, Name(Head(Q)));
 	(*SB).HS[i].AssetsRec = aset(Head(Q));
@@ -282,4 +289,3 @@ void closeHS() {
 	}
 	
 	
-
