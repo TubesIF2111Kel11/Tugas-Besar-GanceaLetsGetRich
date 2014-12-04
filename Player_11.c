@@ -162,7 +162,7 @@ void f2arrcpy(UserTab *T) {
 	i = 0;
 	(*T).Neff = 0;
 	while(fgets(cc, 20, textuser) != NULL) {
-		fscanf(textuser, "%s", cc);
+		read(&cc);
 		strcpy((*T).UserName[i], cc);
 		++i;
 		}
@@ -206,7 +206,7 @@ void loadgame(Queue *Q, address P) {
 	int post;
 	// Algoritma
 	for (i; i <= countplayer(*Q); ++i) {
-		fscanf(ingameplayer,"%s\t%ld\t%ld\t%d", &c, &bal, &ast, &post);
+		fscanf(ingameplayer,"%s\t%ld\t%ld\t%d", c, &bal, &ast, &post);
 		Login((&(*Q)), P);
 		strcpy(Name(P), c);
 		balance(P) = bal;
@@ -271,7 +271,7 @@ void ftoHS(ScoreBoard *SB) {
 	// Algoritma
 	
 	for (i; i <= 9; ++i) {
-		fscanf(hsdb, "%s\t%ld", (*SB).HS[i].NameRec, (*SB).HS[i].AssetsRec);
+		fscanf(hsdb, "%s\t%ld", (*SB).HS[i].NameRec, &(*SB).HS[i].AssetsRec);
 		}
 	}
 	
