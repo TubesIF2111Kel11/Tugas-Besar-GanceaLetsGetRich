@@ -17,26 +17,16 @@ typedef int address;
 typedef char string[20];
 typedef int infotype;
 typedef struct{
-		char name[20];			
-		infotype own; //area ini dipunyai pemain ke berapa (0= belum dimiliki)
+	char name[20];
+	char nameonboard[20];
+	infotype own; //area ini dipunyai pemain ke berapa (0= belum dimiliki)
     	infotype compx; // area ini masuk kompleks berapa
     	long price; //area ini harganya berapa
 	}field;
 typedef struct{
 		field idx[fieldmax];
 	}Board;
-void createfield(field *X);
-void printfield(infotype no_field);
-void purchase(infotype no_field, infotype no_player, field *X); //Field relatednya doang
-void sell(infotype no_field, field *X); //Field relatednya doang
-
-int main(){
-	createfield(&X);
-	infotype n;
-	scanf ("%d", &n);
-	printfield(n);
-	return 0;
-}
+infotype globalturn = 0;
 
 void createfield(Board *X){ //INISIASI
 	//Kompleks
@@ -114,6 +104,28 @@ void createfield(Board *X){ //INISIASI
 	(*X).idx[17].name = "K Borju";
 	(*X).idx[18].name = "Labtek VIII";
 	(*X).idx[19].name = "Labtek V";
+	
+		//nama yang dicetak
+	(*X).idx[0 ].nameonboard = "   START   ";
+	(*X).idx[1 ].nameonboard = "  OKTAGON  ";
+	(*X).idx[2 ].nameonboard = "  COMLABS  ";
+	(*X).idx[3 ].nameonboard = "    TVST   ";
+	(*X).idx[4 ].nameonboard = "   TELKOM  ";
+	(*X).idx[5 ].nameonboard = "  PENJARA  ";
+	(*X).idx[6 ].nameonboard = " K_BENGKOK ";
+	(*X).idx[7 ].nameonboard = " KESEMPATAN";
+	(*X).idx[8 ].nameonboard = " GKU_BARAT ";
+	(*X).idx[9 ].nameonboard = " GKU_TIMUR ";
+	(*X).idx[10].nameonboard = "   UNDIAN  ";
+	(*X).idx[11].nameonboard = " AULA_BARAT";
+	(*X).idx[12].nameonboard = " AULA_TIMUR";
+	(*X).idx[13].nameonboard = " KESEMPATAN";
+	(*X).idx[14].nameonboard = " K_BARRACK ";	
+	(*X).idx[15].nameonboard = "  BUS_ITB  ";
+	(*X).idx[16].nameonboard = " KESEMPATAN";
+	(*X).idx[17].nameonboard = "  K_BORJU  ";
+	(*X).idx[18].nameonboard = "LABTEK_VIII";
+	(*X).idx[19].nameonboard = "  LABTEK_V ";
 }
 
 void printfield(infotype no_field){
@@ -141,56 +153,103 @@ void printfield(infotype no_field){
 		default: ;
 	}
 }
+
+void Showboard (Board X)
+{
+	printf(" _______________________________________________________________________ \n");
+	printf("|           |           |           |           |           |           |\n");
+	printf("|%s|%s|%s|%s|%s|%s|\n", X.idx[11].nameonboard, X.idx[12].nameonboard, X.idx[13].nameonboard, X.idx[14].nameonboard, X.idx[15].nameonboard, X.idx[16].nameonboard);
+	printf("|           |           |           |           |           |           |\n");
+	printf("|___________|___________|___________|___________|___________|___________|\n");
+	printf("|           |                                               |           |\n");
+	printf("|%s|                                               |%s|\n", X.idx[10].nameonboard, X.idx[17].nameonboard);
+	printf("|           |                                               |           |\n");
+	printf("|___________|                                               |___________|\n");
+	printf("|           |                                               |           |\n");
+	printf("|%s|                                               |%s|\n", X.idx[9].nameonboard, X.idx[18].nameonboard);
+	printf("|           |                                               |           |\n");
+	printf("|___________|                                               |___________|\n");
+	printf("|           |                                               |           |\n");
+	printf("|%s|                                               |%s|\n", X.idx[8].nameonboard, X.idx[19].nameonboard);
+	printf("|           |                                               |           |\n");
+	printf("|___________|                                               |___________|\n");
+	printf("|           |                                               |           |\n");
+	printf("|%s|                                               |%s|\n", X.idx[7].nameonboard, X.idx[20].nameonboard);
+	printf("|           |                                               |           |\n");
+	printf("|___________|_______________________________________________|___________|\n");
+	printf("|           |           |           |           |           |           |\n");
+	printf("|%s|%s|%s|%s|%s|%s|\n", X.idx[6].nameonboard, X.idx[5].nameonboard, X.idx[4].nameonboard, X.idx[3].nameonboard, X.idx[2].nameonboard, X.idx[1].nameonboard);
+	printf("|           |           |           |           |           |           |\n");
+	printf("|___________|___________|___________|___________|___________|___________|\n");
+}
 	
 void purchase(infotype no_field, infotype no_player, Board *X){
-	printf("bacot\n");
-	(*X).idx[no_field].own = no_player;
-	aset(P)=aset(P)+(*X).idx[no_field].price;
+	printf("Beli gedung? (Tekan 'Ya' untuk membeli gedung(case sensitive))");
+	char yesorno[5];
+	if (balance(P) >= (*X).idx[no_field].price){
+	scanf ("%s", &yesorno);
+	}
+	switch(yesorno){
+		case "Ya":{
+			(*X).idx[no_field].own = no_player;
+			aset(P)=aset(P)+(*X).idx[no_field].price;
+			printf("bacot\n");
+		}
+		default :{;}
+	}
 }
 
-void sell(infotype no_field, Board *X){
-	printf("bacot\n");
+void sell(infotype no_player, Board *X){
+	
 	(*X).idx[no_field].own = 0;
 	aset(P)=aset(P)-(*X).idx[no_field].price;
 }
 
 void rent(infotype no_field, infotype no_player, Board *X){
-	printf("bacot\n");
-	if ((*X).idx[no_field].own != no_player){
-		//si no player kasih ..->price*30/100 ke si .own
-	}
+	int rentrate = (*X).idx[no_field].price*30/100;
+	//pemilik nambah duit
+	//yang masuk ilang duit
+	printf("bacot\n");// *pemasuk membayar uang sewa ke *pemilik sebesar *rentrate
 }
 
-void move(address P) {	
+void move(address P, Board X) {	
 	int r,t;
 	randdice(&r);
 	ranndice(&t);
 	pos(P) = pos(P)+r+t;
+	printf("%s maju sebanya %d langkah!\n", Name(P), r+t);
+	printf("%s berada pada Gedung %s\n", X.idx[pos(P)].name);
+	castoff(pos(P),P,&X);
 	if (pos(P)>fieldmax)&&(pos(P)!=0){
 		pos(P) = pos(P)-fieldmax;
 		balance(P) = balance(P)+1500000;
 	}
 	if (r==t){
-		printf("bacot\n");
+		printf("%s mendapatkan dadu yang sama.\n"), Name(P);
 		move(P);
 	}
 }
 
 void building(infotype no_field, infotype no_player, Board *X){
 	if ((*X).idx[no_field].own == 0){
-		purchase(no_field, no_player, Board X);
+		purchase(no_field, Board X);
 	} else if ((*X).idx[no_field].own == no_player) {
 	} else {
 			rent(no_field, no_player, Board X);
 		}
 }
 	
+void jailed(address P){
+	Jail(P) = 2;
+	printf("bacot\n");
+}
+
 void castoff(infotype no_field, address P, Board *X){
 	
 	if (no_field==0){
 		//do nothin
 	}else if (no_field==5){
-		Jail(P) = 3;
+		jailed(P);
 	}else if (no_field==7)||(no_field==13)||(no_field==16){
 		chance();
 	}else if (no_field==10){
@@ -201,12 +260,20 @@ void castoff(infotype no_field, address P, Board *X){
 }
 	
 void turn(address P) {
+	globalturn++;
+	printf("-----Turn &d-----\n", globalturn);
 	int r,t;
+	printf("Giliran : %s \n", Name(P));
+	printf("Tekan Enter untuk mengocok dadu!\n");
+	scanf(); 
 	randdice(&r);
+	printf("Dadu 1 : %d\n", r);
 	ranndice(&t);
+	printf("Dadu 2 : %d\n", t);
 	if ((r == t)||(Jail(P) = 0)) {
 		Jail(P) = 0;
 		move(player);
+		printf("%s mendapatkan dadu yang sama\n",Name(P));
 	}else{
 		Jail(P) = Jail(P) - 1;
 	}
@@ -222,6 +289,7 @@ void randdice(int *r) {
 void freepark(address P) {
 	if (travb(x, c)) {
 		pos(P) = travbn(x, c);
+		castoff(pos(P),P,&x);
 		printf("bacot\n");
 		}
 	else {
@@ -267,7 +335,7 @@ void chance(chances ch) {
 	switch (x) {
 		case 1	:{
 			pos(P) = 5;
-			Jail(P) = 3;
+			jailed(P);
 		}
 		case 2	:{
 			freepark(P);
